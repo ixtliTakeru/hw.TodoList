@@ -1,50 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
+import { useTodoListStore } from "../stores/todolist.js"
 
+// TodoListStore
+const todoListStore = useTodoListStore()
+const newId = computed (() => {
+    return todoListStore.todoList.values.length + 1
+})
+const addTodoEvent = (todo) => {
+    todoListStore.addTodo(todo)
+}
 
+// addTodoDialog
 const dialogVisible = ref(false)
 
-const handleClose = () => {
-    ElMessageBox.confirm('Are you sure to close this dialog?')
-        .then(() => {
-            done()
-        })
-        .catch(() => {
-            // catch error
-        })
-}
-
-// data structure
-//   [ {id: int, 
-//      title: "string", 
-//      date: "string", 
-//      content: [ "String" ], 
-//      isComplete: boolean, 
-//      isImportant: boolean} ]
-const eventList = [{}];
-
-function fakeData() {
-    for (let i = 0; i < 10; i++) {
-        eventList.push({
-            uuid: i,
-            title: Math.floor(Math.random() * 1000),
-            date: i++,
-            comments: ["Hello World", "Happy Vue.js"],
-            isComplete: Boolean(Math.round(Math.random())),
-            isImportant: Boolean(Math.round(Math.random()))
-        });
-    }
-}
-
-function addTodo() {
-
-}
-
-fakeData()
-console.log("fakeDate", eventList)
-
+// new todo
+const tempTodo = ref({
+    uuid: 0,
+    title: "hi",
+    date: 123,
+    content: "Hello World",
+    isComplete: Boolean(Math.round(Math.random())),
+    isImportant: true
+})
 </script>
 
 <template>
@@ -53,20 +33,32 @@ console.log("fakeDate", eventList)
             <span class="project">Project</span>
             <span class="projectName">Todo List</span>
         </div>
-        <button class="addTodoBtn" @click="addTodo">Add a new todo</button>
-        
+
         <el-button text @click="dialogVisible = true">
-            click to open the Dialog
+            Add a new todo
         </el-button>
-        <el-dialog v-model="dialogVisible" title="Tips" width="30%" :before-close="handleClose">
-            <span>This is a message</span>
+
+        <el-dialog v-model="dialogVisible" title="Add a new todo" width="30%">
+            <el-form>
+                <el-form-item label="Title" :label-width="formLabelWidth">
+                    <el-input v-model="tempTodo.title"></el-input>
+                </el-form-item>
+                <el-form-item label="Content" :label-width="formLabelWidth">
+                    <el-input type="textarea" :rows="4" v-model="tempTodo.content"></el-input>
+                </el-form-item>
+                <el-form-item label="Star" :label-width="formLabelWidth">
+                    <el-checkbox v-model="tempTodo.isImportant">is important</el-checkbox>
+                </el-form-item>
+
+            </el-form>
+
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="dialogVisible = false">
                         Cancel
                     </el-button>
-                    <el-button type="primary" @click="dialogVisible = false">
-                        Confirm
+                    <el-button type="primary" @click="dialogVisible = false, addTodoEvent(tempTodo)">
+                        Add
                     </el-button>
                 </span>
             </template>

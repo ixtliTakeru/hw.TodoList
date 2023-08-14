@@ -1,21 +1,25 @@
 <script setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useTodoListStore } from '../stores/todolist.js'
 
-let id = 0
-const newTodo = ref('')
-const todos = ref([
-    { id: id++, text: 'Learn HTML' },
-    { id: id++, text: 'Learn JavaScript' },
-    { id: id++, text: 'Learn Vue' }
-])
+const todoListStore = useTodoListStore()
+const {todoList, deleteTodo, updateTodo} = storeToRefs(todoListStore)
+// let id = 0
+// const newTodo = ref('')
+// const todos = ref([
+//     { id: id++, text: 'Learn HTML' },
+//     { id: id++, text: 'Learn JavaScript' },
+//     { id: id++, text: 'Learn Vue' }
+// ])
 
 function addTodo() {
-    todos.value.push({ id: id++, text: newTodo.value })
-    newTodo.value = ''
+    // todos.value.push({ id: id++, text: newTodo.value })
+    // newTodo.value = ''
 }
 
 function removeTodo(todo) {
-    todos.value = todos.value.filter((t) => t !== todo)
+    // todos.value = todos.value.filter((t) => t !== todo)
 }
 
 </script>
@@ -27,8 +31,8 @@ function removeTodo(todo) {
             <button>Add Todo</button>
         </form>
         <ul>
-            <li v-for="todo in todos" :key="todo.id">
-                {{ todo.text }}
+            <li v-for="todo in todoList" :key="todo.uuid">
+                {{ todo.title }}
                 <button @click="removeTodo(todo)">X</button>
             </li>
         </ul>
