@@ -1,9 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
 import { storeToRefs } from 'pinia'
 import { useTodoListStore } from '../stores/todolist.js'
 import { EllipsisVerticalIcon, StarIcon } from '@heroicons/vue/24/outline'
-import { StarIcon as SolidStarIcon} from '@heroicons/vue/24/solid'
+import { StarIcon as SolidStarIcon } from '@heroicons/vue/24/solid'
 
 // get data/function by pinia
 const todoListStore = useTodoListStore()
@@ -17,8 +18,8 @@ console.log("todoList", todoList.value)
 // calculate time period from create date to now and convert it to readable wording
 const period = computed(() => (createdDate) => {
     const now = Date.now()
-    console.log("now", now)
-    console.log("createdDate", createdDate)
+    // console.log("now", now)
+    // console.log("createdDate", createdDate)
 
     var seconds = Math.floor((now - createdDate) / 1000);
 
@@ -58,32 +59,31 @@ function removeTodo(index) {
     console.log("removeTodo", index)
     deleteTodo(index)
 }
-
 </script>
 
 <template>
-    <div class="app-todolist">
-        <div v-for="(todo, index) in todoList" :key="todo.uuid" class="todo-cardview">
-            <div class="todo-cardview-header">
-                <p class="todo-cardview-title">{{ todo.title }}</p>
-                <p class="todo-cardview-content">{{ todo.content }}</p>
-            </div>
-            <!-- display staricon not checkbox -->
-            <div class="todo-cardview-footer">
-                <div>
-                    <p class="todo-cardview-period"> {{ period(todo.date) }} </p>
+    <div>
+        <VueDraggableNext class="app-todolist" :list="todoList" >
+            <div v-for="(todo, index) in todoList" :key="todo.uuid" class="todo-cardview">
+                <div class="todo-cardview-header">
+                    <p class="todo-cardview-title">{{ todo.title }}</p>
+                    <p class="todo-cardview-content">{{ todo.content }}</p>
                 </div>
-                <div>
-                    <!-- Todo: should find the solution by checkbox, use a workaround(v-if, v-else) now -->
-                    <SolidStarIcon v-if="todo.isImportant" class="star-icon" @click="updateImpotant(index)"/>
-                    <StarIcon v-else class="star-icon" @click="updateImpotant(index)"/>
-                    <EllipsisVerticalIcon class="more-function-icon" @click="removeTodo(index)" />
+                <!-- display staricon not checkbox -->
+                <div class="todo-cardview-footer">
+                    <div>
+                        <p class="todo-cardview-period"> {{ period(todo.date) }} </p>
+                    </div>
+                    <div>
+                        <!-- Todo: should find the solution by checkbox, use a workaround(v-if, v-else) now -->
+                        <SolidStarIcon v-if="todo.isImportant" class="star-icon" @click="updateImpotant(index)" />
+                        <StarIcon v-else class="star-icon" @click="updateImpotant(index)" />
+                        <!-- Todo: should implement dropdown list for delete and edit. -->
+                        <EllipsisVerticalIcon class="more-function-icon" @click="removeTodo(index)" />
+                    </div>
                 </div>
             </div>
-
-        </div>
-
-
+        </VueDraggableNext>
     </div>
 </template>
 
@@ -105,6 +105,7 @@ function removeTodo(index) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .todo-cardview-header {
@@ -171,8 +172,19 @@ function removeTodo(index) {
     height: 24px;
     color: black;
 }
+
 .more-function-icon:hover,
 .more-function-icon:checked {
     color: gray;
+}
+
+.drag-box .items {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #e3e3e3;
+    border-radius: 8px;
 }
 </style>
