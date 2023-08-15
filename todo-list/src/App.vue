@@ -13,12 +13,13 @@ import Personal from './components/Personal.vue'
     <Sidebar />
     <div class="app-content">
       <Header />
-      <Toolbar />
-      <TodoList />
+      <div class="todo-container">
+        <Toolbar />
+        <TodoList />
+      </div>
     </div>
     <Personal />
   </div>
-
 </template>
 
 <style scoped>
@@ -34,8 +35,16 @@ import Personal from './components/Personal.vue'
 .app-content {
   width: 100%;
   height: 100%;
-  background-color: tomato;
   overflow: hidden;
   min-height: auto;
+}
+
+.todo-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  min-height: auto;
+  background-color: rgba(233, 237, 241, 0.7);
+  border-radius: 32px;
 }
 </style>
