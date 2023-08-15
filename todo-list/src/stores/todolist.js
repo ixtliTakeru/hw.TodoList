@@ -11,16 +11,22 @@ export const useTodoListStore = defineStore('todolist', () => {
   //      isComplete: boolean, 
   //      isImportant: boolean} ]
 
-  const todoList = ref([{}])
+  const todoList = ref([])
 
   //   const sortBy = computed(() => {})
+
+  // calculate time perios from now to create date and format it to "{min} mins ago".
+  // const timePeriod = computed((createdDate) => {
+  //   const now = Date.now()
+  //   return now - createdDate
+  // })
 
   function addTodo(todo) {
     console.log("todo", todo)
     todoList.value.push({
       uuid: todoList.value.length,
       title: todo.title,
-      date: todo.date,
+      date: Date.now(),
       content: todo.content,
       isComplete: todo.isComplete,
       isImportant: todo.isImportant
@@ -33,9 +39,17 @@ export const useTodoListStore = defineStore('todolist', () => {
     todoList.value.splice(index, 1);
   }
 
-  function updateTodo() {
-
+  function updateTodo(index, updateTodo) {
+    const updateTarget = todoList.value.at(index)
+    console.log("updateTarget", updateTarget)
   }
 
-  return { todoList, addTodo, deleteTodo, updateTodo }
+  function updateImpotant(index) {
+    console.log("updateImpotant", index)
+    const updateTarget = todoList.value.at(index)
+    console.log("updateImpotant", updateTarget)
+    updateTarget.isImportant = !updateTarget.isImportant
+  }
+
+  return { todoList, addTodo, deleteTodo, updateTodo, updateImpotant }
 })
