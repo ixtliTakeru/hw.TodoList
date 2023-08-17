@@ -41,20 +41,22 @@ function checkInputContent() {
             <span class="project-name">Todo List</span>
         </div>
 
+        <!-- add todo btn -->
         <el-button @click="dialogVisible = true" class="add-todo-btn">
             Add a new todo
         </el-button>
 
-        <el-dialog v-model="dialogVisible" title="Add a new todo" width="30%">
-            <el-form>
-                <el-form-item label="Title" >
+        <!-- add todo dialog -->
+        <el-dialog v-model="dialogVisible"  title="Add a new todo" width="30%" style="border-radius: 20px;" :show-close="false">
+            <el-form label-width="100px" :label-position="left">
+                <el-form-item label="Title">
                     <el-input v-model="tempTodo.title"></el-input>
                 </el-form-item>
-                <el-form-item label="Content" >
+                <el-form-item label="Content">
                     <el-input type="textarea" :rows="4" v-model="tempTodo.content"></el-input>
                 </el-form-item>
-                <el-form-item label="Star" >
-                    <el-checkbox v-model="tempTodo.isImportant">is important</el-checkbox>
+                <el-form-item label="Important">
+                    <el-switch v-model="tempTodo.isImportant" />
                 </el-form-item>
 
             </el-form>
@@ -123,5 +125,9 @@ function checkInputContent() {
 
 .dialog-footer button:first-child {
     margin-right: 10px;
+}
+
+.el {
+    border-radius: 20px;
 }
 </style>
