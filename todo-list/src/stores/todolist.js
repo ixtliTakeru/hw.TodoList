@@ -51,14 +51,14 @@ export const useTodoListStore = defineStore('todolist', () => {
   }
 
   function updateImpotant(uuid) {
-    console.log("updateImpotant", index)
+    console.log("updateImpotant", uuid)
     const updateTarget = todoList.value.find((todo) => todo.uuid == uuid);
     console.log("updateImpotant", updateTarget)
     updateTarget.isImportant = !updateTarget.isImportant
   }
 
   function updateCompleted(uuid) {
-    console.log("updateCompleted", index)
+    console.log("updateCompleted", uuid)
     const updateTarget = todoList.value.find((todo) => todo.uuid == uuid);
     updateTarget.isCompleted = true
   }

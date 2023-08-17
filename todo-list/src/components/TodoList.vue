@@ -3,7 +3,7 @@ import { ref, computed, reactive } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { storeToRefs } from 'pinia'
 import { useTodoListStore } from '../stores/todolist.js'
-import { EllipsisVerticalIcon, StarIcon } from '@heroicons/vue/24/outline'
+import { EllipsisHorizontalIcon, StarIcon } from '@heroicons/vue/24/outline'
 import { StarIcon as SolidStarIcon } from '@heroicons/vue/24/solid'
 
 // get data/function by pinia
@@ -14,6 +14,10 @@ const { todoList } = storeToRefs(todoListStore)
 const { deleteTodo, updateTodo, updateImpotant, updateCompleted} = todoListStore
 console.log("todoList.length", todoList.value.length)
 console.log("todoList", todoList.value)
+
+const displayTodoList = computed(() => {
+    return todoList.value.filter(t => t.isCompleted === false)
+})
 
 // calculate time period from create date to now and convert it to readable wording
 const period = computed(() => (createdDate) => {
@@ -50,13 +54,6 @@ const period = computed(() => (createdDate) => {
     return Math.floor(seconds) + " seconds ago";
 })
 
-
-
-function removeTodo(uuid) {
-    console.log("removeTodo", uuid)
-    deleteTodo(uuid)
-}
-
 // more btn dropdown
 const handleMoreBtnCommand = (command) => {
     // ElMessage(`click on item ${command.event}, ${command.target}`)
@@ -69,8 +66,8 @@ const handleMoreBtnCommand = (command) => {
             updateCompleted(command.target)
             break;
         case moreDropdownItems[2].value:
-            // ElMessage(`click on item ${command.event}`)
-            removeTodo(command.target)
+            
+            deleteTodo(command.target)
             break;
         default:
             console.log("doNothing");
@@ -125,7 +122,7 @@ function submitEditTodo() {
     <div>
         <VueDraggableNext class="app-todolist" :list="todoList" :disabled="true">
             <!-- using v-for to render list with two args (todo and index) -->
-            <div v-for="(todo, index) in todoList" :key="todo.uuid" class="todo-cardview">
+            <div v-for="(todo, index) in displayTodoList" :key="todo.uuid" class="todo-cardview">
                 <div class="todo-cardview-header">
                     <p class="todo-cardview-title">{{ todo.title }}</p>
                     <p class="todo-cardview-content">{{ todo.content }}</p>
@@ -141,7 +138,7 @@ function submitEditTodo() {
                         <StarIcon v-else class="star-icon" @click="updateImpotant(todo.uuid)" />
                         <!-- more dropdown list -->
                         <el-dropdown @command="handleMoreBtnCommand">
-                            <EllipsisVerticalIcon class="more-function-icon" />
+                            <EllipsisHorizontalIcon class="more-function-icon" />
                             <template #dropdown>
                                 <el-dropdown-menu>
                                     <el-dropdown-item v-for="more in moreDropdownItems"
