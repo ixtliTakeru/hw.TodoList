@@ -28,28 +28,40 @@ export const useTodoListStore = defineStore('todolist', () => {
       title: todo.title,
       date: Date.now(),
       content: todo.content,
-      isComplete: todo.isComplete,
+      isCompleted: todo.isComplete,
       isImportant: todo.isImportant
     })
     console.log("todoList", todoList)
     console.log("todoList:length", todoList.value.length)
   }
 
-  function deleteTodo(index) {
-    todoList.value.splice(index, 1);
+  function deleteTodo(uuid) {
+    const targetIndex = todoList.value.findIndex((todo) => todo.uuid == uuid);
+    todoList.value.splice(targetIndex, 1);
   }
 
-  function updateTodo(index, updateTodo) {
-    const updateTarget = todoList.value.at(index)
-    console.log("updateTarget", updateTarget)
+  function updateTodo(modifiedTodo) {
+    const targetTodo = todoList.value.find((todo) => todo.uuid == modifiedTodo.uuid);
+    console.log("targetTodo", targetTodo)
+
+    targetTodo.title = modifiedTodo.title
+    targetTodo.content = modifiedTodo.content
+    targetTodo.isImportant = modifiedTodo.isImportant
+    targetTodo.isCompleted = modifiedTodo.isCompleted
   }
 
-  function updateImpotant(index) {
+  function updateImpotant(uuid) {
     console.log("updateImpotant", index)
-    const updateTarget = todoList.value.at(index)
+    const updateTarget = todoList.value.find((todo) => todo.uuid == uuid);
     console.log("updateImpotant", updateTarget)
     updateTarget.isImportant = !updateTarget.isImportant
   }
 
-  return { todoList, addTodo, deleteTodo, updateTodo, updateImpotant }
+  function updateCompleted(uuid) {
+    console.log("updateCompleted", index)
+    const updateTarget = todoList.value.find((todo) => todo.uuid == uuid);
+    updateTarget.isCompleted = true
+  }
+
+  return { todoList, addTodo, deleteTodo, updateTodo, updateImpotant, updateCompleted}
 })

@@ -11,7 +11,7 @@ const todoListStore = useTodoListStore()
 // for data
 const { todoList } = storeToRefs(todoListStore)
 // for function
-const { deleteTodo, updateTodo, updateImpotant } = todoListStore
+const { deleteTodo, updateTodo, updateImpotant, updateCompleted} = todoListStore
 console.log("todoList.length", todoList.value.length)
 console.log("todoList", todoList.value)
 
@@ -50,20 +50,81 @@ const period = computed(() => (createdDate) => {
     return Math.floor(seconds) + " seconds ago";
 })
 
-// function updateTodo() {
-// todos.value.push({ id: id++, text: newTodo.value })
-// newTodo.value = ''
-// }
 
-function removeTodo(index) {
-    console.log("removeTodo", index)
-    deleteTodo(index)
+
+function removeTodo(uuid) {
+    console.log("removeTodo", uuid)
+    deleteTodo(uuid)
+}
+
+// more btn dropdown
+const handleMoreBtnCommand = (command) => {
+    // ElMessage(`click on item ${command.event}, ${command.target}`)
+    console.log("handleMoreBtnCommand", `click: ${command.event}, ${command.target}`)
+    switch (command.event) {
+        case moreDropdownItems[0].value:
+            displayEditTodoDialog(command.target)
+            break;
+        case moreDropdownItems[1].value:
+            updateCompleted(command.target)
+            break;
+        case moreDropdownItems[2].value:
+            // ElMessage(`click on item ${command.event}`)
+            removeTodo(command.target)
+            break;
+        default:
+            console.log("doNothing");
+    }
+}
+
+const moreDropdownItems = [
+    {
+        key: 0,
+        title: "Edit",
+        value: "edit"
+    },
+    {
+        key: 1,
+        title: "Completed",
+        value: "completed"
+    },
+    {
+        key: 2,
+        title: "Delete",
+        value: "delete"
+    }
+]
+
+// editTodoDialog
+const editDialogVisible = ref(false)
+const tempTodo = ref({
+    uuid: 0,
+    title: "",
+    content: "",
+    isImportant: false,
+    isCompleted: false,
+})
+function displayEditTodoDialog(uuid) {
+    const targetTodo = todoList.value.find((todo) => todo.uuid == uuid);
+    tempTodo.value.uuid = targetTodo.uuid
+    tempTodo.value.title = targetTodo.title
+    tempTodo.value.content = targetTodo.content
+    tempTodo.value.isImportant = targetTodo.isImportant
+
+    editDialogVisible.value = true
+}
+
+function submitEditTodo() {
+    console.log("submitEditTodo", tempTodo)
+    //Notice: need use tempTodo.value not tempTodo 
+    updateTodo(tempTodo.value)
 }
 </script>
 
 <template>
     <div>
-        <VueDraggableNext class="app-todolist" :list="todoList" >
+        <VueDraggableNext class="app-todolist" :list="todoList" :disabled="true">
+            <!-- using v-for to render list with two args (todo and index) -->
             <div v-for="(todo, index) in todoList" :key="todo.uuid" class="todo-cardview">
                 <div class="todo-cardview-header">
                     <p class="todo-cardview-title">{{ todo.title }}</p>
@@ -76,14 +137,53 @@ function removeTodo(index) {
                     </div>
                     <div>
                         <!-- Todo: should find the solution by checkbox, use a workaround(v-if, v-else) now -->
-                        <SolidStarIcon v-if="todo.isImportant" class="star-icon" @click="updateImpotant(index)" />
-                        <StarIcon v-else class="star-icon" @click="updateImpotant(index)" />
-                        <!-- Todo: should implement dropdown list for delete and edit. -->
-                        <EllipsisVerticalIcon class="more-function-icon" @click="removeTodo(index)" />
+                        <SolidStarIcon v-if="todo.isImportant" class="star-icon" @click="updateImpotant(todo.uuid)" />
+                        <StarIcon v-else class="star-icon" @click="updateImpotant(todo.uuid)" />
+                        <!-- more dropdown list -->
+                        <el-dropdown @command="handleMoreBtnCommand">
+                            <EllipsisVerticalIcon class="more-function-icon" />
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item v-for="more in moreDropdownItems"
+                                        :command="{ event: more.value, target: todo.uuid }">{{
+                                            more.title }}</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
                     </div>
                 </div>
             </div>
         </VueDraggableNext>
+
+        <!-- edit todo dialog -->
+        <el-dialog v-model="editDialogVisible" title="Edit todo" width="30%" style="border-radius: 20px;"
+            :show-close="false">
+            <el-form label-width="100px" label-position="left">
+                <el-form-item label="Title">
+                    <el-input v-model="tempTodo.title"></el-input>
+                </el-form-item>
+                <el-form-item label="Content">
+                    <el-input type="textarea" :rows="4" v-model="tempTodo.content"></el-input>
+                </el-form-item>
+                <el-form-item label="Important">
+                    <el-switch v-model="tempTodo.isImportant" />
+                </el-form-item>
+                <el-form-item label="Completed">
+                    <el-switch v-model="tempTodo.isCompleted" />
+                </el-form-item>
+            </el-form>
+
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editDialogVisible = false">
+                        Cancel
+                    </el-button>
+                    <el-button type="primary" @click="editDialogVisible = false, submitEditTodo(tempTodo)">
+                        Submit
+                    </el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
