@@ -1,11 +1,30 @@
 <script setup>
-
+import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserNameStore } from '../stores/userName.js'
+import { useTodoListStore } from '../stores/todolist.js'
 import { MagnifyingGlassIcon, MusicalNoteIcon, BellIcon } from '@heroicons/vue/24/outline'
 
+// username
 const userNameStore = useUserNameStore()
 const { userName, setUserName } = storeToRefs(userNameStore)
+
+
+// statistics
+const todoListStore = useTodoListStore()
+const { todoList } = storeToRefs(todoListStore)
+
+const all = computed(() => {
+    return todoList.value.length
+})
+
+const important = computed(() => {
+    return todoList.value.filter(t => t.isImportant === true).length
+})
+
+const completed = computed(() => {
+    return todoList.value.filter(t => t.isCompleted === true).length
+})
 
 </script>
 
@@ -18,21 +37,67 @@ const { userName, setUserName } = storeToRefs(userNameStore)
         </div>
 
         <div class="info-card">
-            <div>
-                <p class="hello-text">Hello</p>
-                <p class="username-text"> {{ userName }} </p>
-            </div>
+            <el-row>
+                <el-col :span="14">
+                    <div class="grid-content" style="height: 80px; align-items: center;display: flex;">
+                        <div style="margin-left: 20px;">
+                            <p class="hello-text">Hello</p>
+                            <p class="username-text"> {{ userName }} </p>
+                        </div>
+                    </div>
+                </el-col>
 
-            <img src="@/assets/nara.png"
-                alt="profile image" class="selfie">
+                <el-col :span="10">
+                    <div class="grid-content" style="height: 80px; justify-content: center; display: flex;">
+                        <img src="@/assets/nara.png" alt="profile image" class="selfie">
+                    </div>
+                </el-col>
+            </el-row>Ï
         </div>
 
         <div class="statistics-card">
-            <p class="t">statistics card</p>
+            <el-row>
+                <el-col :span="12">
+                    <p class="statistics-title">All</p>
+                    <el-row class="statistics-amount-containter">
+                        <div class="statistics-indicator"></div>
+                        <a class="statistics-amount"> {{ all }} </a>
+                    </el-row>
+                </el-col>
+
+                <el-col :span="12">
+                    <p class="statistics-title">Important</p>
+                    <el-row class="statistics-amount-containter">
+                        <div class="statistics-indicator"></div>
+                        <a class="statistics-amount"> {{ important }} </a>
+                    </el-row>
+                </el-col>
+            </el-row>Ï
+            <el-row>
+                <el-col :span="12">
+                    <p class="statistics-title">Completed</p>
+                    <el-row class="statistics-amount-containter">
+                        <div class="statistics-indicator"></div>
+                        <a class="statistics-amount"> {{ completed }} </a>
+                    </el-row>
+                </el-col>
+
+                <el-col :span="12">
+                </el-col>
+            </el-row>Ï
         </div>
 
         <div class="activity-card">
-            <p class="t">activity card</p>
+            <el-row>
+                <el-col :span="14">
+                    <div class="grid-content" style="height: 80px; align-items: center;display: flex;">
+                        <div style="margin-left: 20px;">
+                            <p class="hello-text">Activity</p>
+                            <p class="username-text"> Feed </p>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
         </div>
     </div>
 </template>
@@ -67,18 +132,13 @@ const { userName, setUserName } = storeToRefs(userNameStore)
 .info-card {
     width: 100%;
     margin-top: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
 }
 
 .selfie {
     border-radius: 50%;
     object-fit: cover;
-    width: 70px;
-    height: 70px;
-    margin-left: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .hello-text {
@@ -94,11 +154,54 @@ const { userName, setUserName } = storeToRefs(userNameStore)
 
 .statistics-card {
     width: 100%;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .activity-card {
     width: 100%;
     margin-top: 20px;
+}
+
+.el-row {
+    margin-bottom: 20px;
+}
+
+.el-row:last-child {
+    margin-bottom: 0;
+}
+
+.el-col {
+    border-radius: 4px;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.statistics-item {
+    height: 60px;
+}
+
+.statistics-title {
+    font-size: 14px;
+    color: gray;
+}
+
+.statistics-amount {
+    font-size: 24px;
+    color: black;
+}
+
+.statistics-amount-containter {
+    align-items: center;
+    display: flex;
+}
+
+.statistics-indicator {
+    height: 25px;
+    width: 5px;
+    background-color: blueviolet;
+    margin-right: 10px;
 }
 </style>
