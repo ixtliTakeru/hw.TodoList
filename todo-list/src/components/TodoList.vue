@@ -63,11 +63,13 @@ const handleMoreBtnCommand = (command) => {
             displayEditTodoDialog(command.target)
             break;
         case moreDropdownItems[1].value:
-            updateCompleted(command.target)
+            // two writing style:
+            // 1. Pass func "updateCompleted()" to handleCompleted
+            handleCompleted(function(){ updateCompleted(command.target) })
             break;
-        case moreDropdownItems[2].value:
-            
-            deleteTodo(command.target)
+        case moreDropdownItems[2].value:            
+            // 2. pass value "comment.target" to handleDelete
+            handleDelete(command.target)
             break;
         default:
             console.log("doNothing");
@@ -116,6 +118,27 @@ function submitEditTodo() {
     //Notice: need use tempTodo.value not tempTodo 
     updateTodo(tempTodo.value)
 }
+
+// confirm dialog when complete and delete todo
+const handleCompleted = (done) => {
+  ElMessageBox.confirm('Are you sure to complete this todo?')
+    .then(() => {
+        done()
+    })
+    .catch(() => {
+      // catch error
+    })
+}
+
+const handleDelete = (uuid) => {
+  ElMessageBox.confirm('Are you sure to delete this todo?')
+    .then(() => {
+        deleteTodo(uuid)
+    })
+    .catch(() => {
+      // catch error
+    })
+}
 </script>
 
 <template>
@@ -141,6 +164,7 @@ function submitEditTodo() {
                             <EllipsisHorizontalIcon class="more-function-icon" />
                             <template #dropdown>
                                 <el-dropdown-menu>
+                                    <!-- if you want to pass more than two args, wrap it to object -->
                                     <el-dropdown-item v-for="more in moreDropdownItems"
                                         :command="{ event: more.value, target: todo.uuid }">{{
                                             more.title }}</el-dropdown-item>
