@@ -1,10 +1,18 @@
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
 import Sidebar from './components/SideBar.vue'
 import Header from './components/Header.vue'
 import Toolbar from './components/Toolbar.vue'
 import TodoList from './components/TodoList.vue'
 import Personal from './components/Personal.vue'
+
+// receive value from Toolbar.vue(child component)
+const typeFilter = ref("all")
+const filterCallback = (filter) => {
+  console.log("filterCallback", filter)
+  typeFilter.value = filter
+}
+
 
 </script>
 
@@ -14,8 +22,8 @@ import Personal from './components/Personal.vue'
     <div class="app-content">
       <Header />
       <div class="todo-container">
-        <Toolbar />
-        <TodoList />
+        <Toolbar @selectedFilter="filterCallback"/>
+        <TodoList :filter="typeFilter"/>
       </div>
     </div>
     <Personal />

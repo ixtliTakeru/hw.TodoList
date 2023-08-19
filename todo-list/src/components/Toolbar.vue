@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits} from 'vue'
 
 import { Bars4Icon, BeakerIcon, Cog6ToothIcon, EllipsisVerticalIcon } from '@heroicons/vue/24/outline'
 import { Squares2X2Icon } from '@heroicons/vue/24/solid'
@@ -9,7 +9,7 @@ function handleClick() {
 }
 
 // setup default selectedFilter value => "all"
-const selectedFilter = ref ("all")
+const selectedFilter = ref("all")
 const filterDropdownItems = [
     {
         key: 0,
@@ -26,12 +26,17 @@ const filterDropdownItems = [
         title: "Completed",
         value: "completed"
     }
-    ]
+]
 
+// emit filter to parent components
+const emit = defineEmits(["selectedFilter"])
 function onSelectChanged() {
     console.log("onSelectChanged", selectedFilter.value);
-    // TODO: emit to TodoList.Vue 
+    // emit to TodoList.Vue 
+    emit("selectedFilter", selectedFilter.value)
 }
+
+
 
 </script>
 
@@ -41,13 +46,14 @@ function onSelectChanged() {
             <Squares2X2Icon class="icon" />
             <Bars4Icon class="icon" />
         </div>
-        <div>    
+        <div>
             <p style="color:gray; font-size: 12px;">Filter</p>
             <select class="filter-dropdown-select" @change="onSelectChanged()" v-model="selectedFilter">
-                <option v-for="item in filterDropdownItems" v-bind:key="item.key" :value="item.value" class="filter-dropdown-option">
+                <option v-for="item in filterDropdownItems" v-bind:key="item.key" :value="item.value"
+                    class="filter-dropdown-option">
                     {{ item.title }}
                 </option>
-            </select>        
+            </select>
         </div>
     </div>
 </template>
@@ -89,6 +95,7 @@ function onSelectChanged() {
     background-color: transparent;
     margin-left: -4px;
 }
+
 .filter-dropdown-select:active,
 .filter-dropdown-select:after {
     border: none;

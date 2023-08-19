@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, defineProps } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { storeToRefs } from 'pinia'
 import { useTodoListStore } from '../stores/todolist.js'
@@ -15,8 +15,23 @@ const { deleteTodo, updateTodo, updateImpotant, updateCompleted} = todoListStore
 console.log("todoList.length", todoList.value.length)
 console.log("todoList", todoList.value)
 
+// filter by all, important and completed
 const displayTodoList = computed(() => {
-    return todoList.value.filter(t => t.isCompleted === false)
+    console.log("displayTodoList", props.filter)
+    switch (props.filter) {
+        case "all":
+            return todoList.value.filter(t => t.isCompleted === false)
+            break;
+        case "important":
+            return todoList.value.filter(t => (t.isCompleted === false && t.isImportant === true))
+            break;   
+        case "completed":
+            return todoList.value.filter(t => t.isCompleted === true)
+            break;
+        default:    
+            return todoList.value.filter(t => t.isCompleted === false)
+            break;
+    }
 })
 
 // calculate time period from create date to now and convert it to readable wording
@@ -139,6 +154,17 @@ const handleDelete = (uuid) => {
       // catch error
     })
 }
+
+// receive value from App.vue(parent component)
+const props = defineProps ({
+    filter: {
+        type: String,
+        default: "all"
+    }
+})
+
+
+
 </script>
 
 <template>
