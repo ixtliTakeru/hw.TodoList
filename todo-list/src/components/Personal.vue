@@ -18,6 +18,10 @@ const all = computed(() => {
     return todoList.value.length
 })
 
+const inProgress = computed(() => {
+    return todoList.value.filter(t => t.isCompleted === false).length
+})
+
 const important = computed(() => {
     return todoList.value.filter(t => t.isImportant === true).length
 })
@@ -66,23 +70,28 @@ const completed = computed(() => {
                 </el-col>
 
                 <el-col :span="12">
+                    <p class="statistics-title">In Progress</p>
+                    <el-row class="statistics-amount-containter">
+                        <div class="statistics-indicator"></div>
+                        <a class="statistics-amount"> {{ inProgress }} </a>
+                    </el-row>
+                </el-col>
+            </el-row>Ï
+            <el-row>
+                <el-col :span="12">
                     <p class="statistics-title">Important</p>
                     <el-row class="statistics-amount-containter">
                         <div class="statistics-indicator"></div>
                         <a class="statistics-amount"> {{ important }} </a>
                     </el-row>
                 </el-col>
-            </el-row>Ï
-            <el-row>
+
                 <el-col :span="12">
                     <p class="statistics-title">Completed</p>
                     <el-row class="statistics-amount-containter">
                         <div class="statistics-indicator"></div>
                         <a class="statistics-amount"> {{ completed }} </a>
                     </el-row>
-                </el-col>
-
-                <el-col :span="12">
                 </el-col>
             </el-row>Ï
         </div>

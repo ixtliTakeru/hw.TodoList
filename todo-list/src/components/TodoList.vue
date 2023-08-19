@@ -15,10 +15,13 @@ const { deleteTodo, updateTodo, updateImpotant, updateCompleted} = todoListStore
 console.log("todoList.length", todoList.value.length)
 console.log("todoList", todoList.value)
 
-// filter by all, important and completed
+// filter by all, inprogress, important and completed
 const displayTodoList = computed(() => {
     console.log("displayTodoList", props.filter)
     switch (props.filter) {
+        case "all":
+            return todoList.value
+            break;
         case "all":
             return todoList.value.filter(t => t.isCompleted === false)
             break;
@@ -159,7 +162,7 @@ const handleDelete = (uuid) => {
 const props = defineProps ({
     filter: {
         type: String,
-        default: "all"
+        default: "inprogress"
     }
 })
 

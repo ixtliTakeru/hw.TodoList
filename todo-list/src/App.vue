@@ -7,7 +7,7 @@ import TodoList from './components/TodoList.vue'
 import Personal from './components/Personal.vue'
 
 // receive value from Toolbar.vue(child component)
-const typeFilter = ref("all")
+const typeFilter = ref("inprogress")
 const filterCallback = (filter) => {
   console.log("filterCallback", filter)
   typeFilter.value = filter

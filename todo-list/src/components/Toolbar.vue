@@ -8,8 +8,8 @@ function handleClick() {
     console.log("handleClick", handleClick);
 }
 
-// setup default selectedFilter value => "all"
-const selectedFilter = ref("all")
+// setup default selectedFilter value => "inprogress"
+const selectedFilter = ref("inprogress")
 const filterDropdownItems = [
     {
         key: 0,
@@ -18,11 +18,16 @@ const filterDropdownItems = [
     },
     {
         key: 1,
+        title: "In progress",
+        value: "inprogress"
+    },
+    {
+        key: 2,
         title: "Important",
         value: "important"
     },
     {
-        key: 2,
+        key: 3,
         title: "Completed",
         value: "completed"
     }
