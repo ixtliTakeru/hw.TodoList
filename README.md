@@ -80,6 +80,9 @@ This is a todo list that my first try to do a work about frontend.
   Support RWD 寬度小於600px(mobile device)    
 ```首先了解RWD的用途跟目的後，去思考該怎麼實作。最先遇到的問題就是這個版面的RWD該變成什麼樣子。但是這部分其實沒有一訂的規則。參考了大部分的作法，有將橫向排列的layout item變成直向：也有些事縮小圖案跟字體或是內容縮減；也有些針對不同的寬再做一版layout。```   
 ```最後我決定先設定一個寬度600px，小於這寬度視為mobile直向。實作部分：Header裏面的project跟todolist透過flex-warp把它從橫向排列改為直向；新增todo的按紐文字，從add a new todo縮減為add並且縮減其寬度；右方personal的處理方式，則是重新設計一個直向的版面，提供在600px時，做切換；Add todo dialog方面，原本以為也可以透過css一起處理，但是el-dialog怎麼改就是不為所動。最後的解決方案是新增一個ref變數dialogWidth，在Vue的lifecycle裡新增一個resize監聽器，再透過document.body.clientWidth取得當下個screen size，再把css的邏輯用js寫出來，給dialogWidth，這樣el-dialog也可以有rwd的效果。```
+- 2hr:   
+  實作空輸入資料的檢查 (Add todo dialog)    
+``` 表單輸入必須檢查其輸入格式與內容，所以這邊就實作了最基礎的空資料檢查，利用el-form的validor檢查輸入資料。這功能卡了有點久是因為el-form要給一個ref的值，這個值必須也要是ref的型態。然後rules的key必須跟el-form-item的prop還有data的field id皆相同才會動。rules也必須是reactive的型態```   
 
   
 ### Screenshot
@@ -103,10 +106,12 @@ This is a todo list that my first try to do a work about frontend.
   
 - 實作RWD
   ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-6.png?raw=true)
-  
+
+- 實作空輸入資料的檢查   
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-7.png?raw=true)
   
 ### Future imporvement:
 - 可以整合雲端服務達到Cloud Stroage功能
 - 整合/整理Css讓它更簡潔有系統
 - RWD應該在最一開始切版時候就要考慮
-- Add/edit todo dialog需要做資料的驗證
+
