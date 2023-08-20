@@ -172,7 +172,7 @@ const props = defineProps ({
 
 <template>
     <div>
-        <VueDraggableNext class="app-todolist" :list="todoList" :disabled="true">
+        <VueDraggableNext class="app-todolist" :list="todoList" :disabled="false">
             <!-- using v-for to render list with two args (todo and index) -->
             <div v-for="(todo, index) in displayTodoList" :key="todo.uuid" class="todo-cardview">
                 <div class="todo-cardview-header">

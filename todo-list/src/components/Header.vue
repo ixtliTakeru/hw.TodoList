@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import 'element-plus/es/components/message/style/css'
 import { useTodoListStore } from "../stores/todolist.js"
 
@@ -28,37 +28,52 @@ function resetTempTodo() {
     tempTodo.value.isImportant = false;
 }
 
-// TODO: shuld check title and content are empty or not before add 
-function checkInputContent() {
+// RWD for dialog width(listen window event)
+const dialogWidth = ref("40%")
+onMounted(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+});
+
+onUnmounted(() => {
+    window.removeEventListener("resize", handleWindowSizeChange);
+});
+const handleWindowSizeChange = () => {
+    console.log(document.body.clientWidth)
+    let screenWidth = document.body.clientWidth
+    if (screenWidth > 600)    
+        dialogWidth.value = "40%"
+    else
+        dialogWidth.value = "400px"
 }
 
 </script>
 
 <template>
     <div class="app-header">
-        <div>
-            <span class="project">Project</span>
-            <span class="project-name">Todo List</span>
+        <div class="project-info">
+            <div class="project">Project</div>
+            <div class="project-name">Todo List</div>
         </div>
 
         <!-- add todo btn -->
         <el-button @click="dialogVisible = true" class="add-todo-btn">
-            Add a new todo
+            Add <span>&nbsp;a new todo</span>
         </el-button>
 
         <!-- add todo dialog -->
-        <el-dialog v-model="dialogVisible"  title="Add a new todo" width="30%" style="border-radius: 20px;" :show-close="false">
-            <el-form label-width="100px" :label-position="left">
+        <el-dialog v-model="dialogVisible" title="Add a new todo" :width="dialogWidth" style="border-radius: 20px;"
+            :show-close="false">
+            <!-- <el-form label-width="100px" :label-position="left" status-icon :rules="rules"> -->
+            <el-form label-width="100px" label-position="left">
                 <el-form-item label="Title">
                     <el-input v-model="tempTodo.title"></el-input>
                 </el-form-item>
                 <el-form-item label="Content">
-                    <el-input type="textarea" :rows="4" v-model="tempTodo.content"></el-input>
+                    <el-input type="textarea" :rows="4" v-model="tempTodo.content" />
                 </el-form-item>
                 <el-form-item label="Important">
                     <el-switch v-model="tempTodo.isImportant" />
                 </el-form-item>
-
             </el-form>
 
             <template #footer>
@@ -90,7 +105,7 @@ function checkInputContent() {
     font-size: 30px;
     line-height: 32px;
     font-weight: 700;
-    margin: 10px;
+    margin-left: 10px;
     color: black;
     background-color: transparent;
 }
@@ -99,6 +114,7 @@ function checkInputContent() {
     font-size: 30px;
     line-height: 32px;
     font-weight: 500;
+    margin-left: 10px;
     color: gray;
     background-color: transparent;
 }
@@ -127,7 +143,31 @@ function checkInputContent() {
     margin-right: 10px;
 }
 
-.el {
-    border-radius: 20px;
+.project-info {
+    display: flex;
+    align-items: center;
+}
+
+/* screen width less than 600px (for mobile device) */
+@media (max-width:600px) {
+    .add-todo-btn {
+        width: 70px;
+    }
+
+    .add-todo-btn span {
+        display: none;
+    }
+
+    .project-info {
+        display: block;
+    }
+
+    .project {
+        font-size: 20px;
+    }
+
+    .project-name {
+        font-size: 20px;
+    }
 }
 </style>
