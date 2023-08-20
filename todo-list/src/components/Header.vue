@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, reactive } from 'vue'
 import 'element-plus/es/components/message/style/css'
 import { useTodoListStore } from "../stores/todolist.js"
 
@@ -40,12 +40,58 @@ onUnmounted(() => {
 const handleWindowSizeChange = () => {
     console.log(document.body.clientWidth)
     let screenWidth = document.body.clientWidth
-    if (screenWidth > 600)    
+    if (screenWidth > 600)
         dialogWidth.value = "40%"
     else
         dialogWidth.value = "400px"
 }
 
+
+// check title and content are empty or not before add 
+// id for el-form 
+const addTodoForm = ref()
+// rule content
+const validateEmpty = (rule, value, callback) => {
+    if (value === "") {
+        return callback(new Error('Please input the data field'))
+    } else {
+        return callback()
+    }
+}
+// rules for each el-form-item (mapping prop) 
+// Notice: rules key need the same as prop and data field name
+const rules = {
+    title: [{ validator: validateEmpty, trigger: 'blur' }],
+    content: [{ validator: validateEmpty, trigger: 'blur' }],
+}
+
+// const ruless = reactive({
+//     title: [{ 
+//         required: true,
+//         message: "Please input the data field",
+//         trigger: "blur",
+//     }],
+//     content: [{ 
+//         required: true,
+//         message: "Please input the data field",
+//         trigger: "blur",
+//     }],
+// })
+
+const submitForm = (data) => {
+    if (!data.formEl) return
+    data.formEl.validate((valid) => {
+        if (valid) {
+            console.log('submit!')
+            dialogVisible.value = false;
+            addTodoEvent(data.todo);
+            resetTempTodo();
+        } else {
+            console.log('error submit!')
+            return false
+        }
+    })
+}
 </script>
 
 <template>
@@ -63,12 +109,11 @@ const handleWindowSizeChange = () => {
         <!-- add todo dialog -->
         <el-dialog v-model="dialogVisible" title="Add a new todo" :width="dialogWidth" style="border-radius: 20px;"
             :show-close="false">
-            <!-- <el-form label-width="100px" :label-position="left" status-icon :rules="rules"> -->
-            <el-form label-width="100px" label-position="left">
-                <el-form-item label="Title">
+            <el-form :model="tempTodo" label-width="100px" label-position="left" :rules="rules" ref="addTodoForm">
+                <el-form-item label="Title" prop="title">
                     <el-input v-model="tempTodo.title"></el-input>
                 </el-form-item>
-                <el-form-item label="Content">
+                <el-form-item label="Content" prop="content">
                     <el-input type="textarea" :rows="4" v-model="tempTodo.content" />
                 </el-form-item>
                 <el-form-item label="Important">
@@ -80,8 +125,8 @@ const handleWindowSizeChange = () => {
                 <span class="dialog-footer">
                     <el-button @click="dialogVisible = false">
                         Cancel
-                    </el-button>
-                    <el-button type="primary" @click="dialogVisible = false, addTodoEvent(tempTodo), resetTempTodo()">
+                    </el-button>                
+                    <el-button type="primary" @click="submitForm({formEl: addTodoForm, todo: tempTodo})">            
                         Add
                     </el-button>
                 </span>
