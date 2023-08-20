@@ -2,14 +2,15 @@
 
 This is a todo list that my first try to do a work about frontend.
 
-Requirement:
+### Requirement:
 1. 新增、完成、刪除 task
 2. 可以改變卡片順序
 3. 可將卡片標示星號 
 4. 以此設計稿去延伸排版，實現基本的 RWD   
    [Design Reference from Dribbble](https://dribbble.com/shots/20568094-Project-Management-Dashboard)
+![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/design_ref.png?raw=true)
 
-Studying Part: Total *12hr*
+### Studying Part: Total *12hr*
 - 4hr: html, css, js
 - 1hr: vue3 - Get Start
 - 1hr: vue3 - ref, reactive, computed
@@ -21,7 +22,7 @@ Studying Part: Total *12hr*
 - 1hr: vue3 - Naive UI
 - 1.5hr: RWD
 
-Implement Part: Total *24hr*
+### Implement Part: Total *25hr*
 - 0.5hr:   
   Env setup: vscode, vue3, node.js 
 - 2hr:   
@@ -55,6 +56,9 @@ Implement Part: Total *24hr*
   el-dropdown不會使用    
   ```filter的dropdown因為el-dropdown還不會使用，所以先用最傳統的select跟option方式實作```
 - 1hr:   
+  Time period     
+  ```新增todo的時候使用Date.now()加入timestamp，顯示的時候也是透過Date.now()取得當下timestamp。兩者相減之後，在透過period轉換成可讀性高的幾秒(分)前```
+- 1hr:   
   delete/edit dropdown   
   ```學會如何使用el-dropdown，並且綁定在todo card的more btn上觸發```   
        change removeTodo args from index to uuid   
@@ -77,7 +81,28 @@ Implement Part: Total *24hr*
 ```首先了解RWD的用途跟目的後，去思考該怎麼實作。最先遇到的問題就是這個版面的RWD該變成什麼樣子。但是這部分其實沒有一訂的規則。參考了大部分的作法，有將橫向排列的layout item變成直向：也有些事縮小圖案跟字體或是內容縮減；也有些針對不同的寬再做一版layout。```   
 ```最後我決定先設定一個寬度600px，小於這寬度視為mobile直向。實作部分：Header裏面的project跟todolist透過flex-warp把它從橫向排列改為直向；新增todo的按紐文字，從add a new todo縮減為add並且縮減其寬度；右方personal的處理方式，則是重新設計一個直向的版面，提供在600px時，做切換；Add todo dialog方面，原本以為也可以透過css一起處理，但是el-dialog怎麼改就是不為所動。最後的解決方案是新增一個ref變數dialogWidth，在Vue的lifecycle裡新增一個resize監聽器，再透過document.body.clientWidth取得當下個screen size，再把css的邏輯用js寫出來，給dialogWidth，這樣el-dialog也可以有rwd的效果。```
 
-Future imporvement:
+  
+### Screenshot
+- 切版   
+![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-1.png?raw=true)
+  
+- 實作dialog範例
+![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-2.png?raw=true)
+  
+- 實作Add todo dialog
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-3.png?raw=true)
+    
+- 實作todo card
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-4.png?raw=true)
+    
+- 實作Draggable
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-5.png?raw=true)
+    
+- 實作RWD
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-6.png?raw=true)
+  
+  
+### Future imporvement:
 - 可以整合雲端服務達到Cloud Stroage功能
 - 整合/整理Css讓它更簡潔有系統
 - RWD應該在最一開始切版時候就要考慮
