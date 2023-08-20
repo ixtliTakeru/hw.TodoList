@@ -97,7 +97,10 @@ This is a todo list that my first try to do a work about frontend.
     
 - 實作Draggable
   ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-5.png?raw=true)
-    
+
+- 實作filter & personal part   
+  ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-7.png?raw=true)
+  
 - 實作RWD
   ![image](https://github.com/ixtliTakeru/hw.TodoList/blob/main/screenshot/screenshot-6.png?raw=true)
   
