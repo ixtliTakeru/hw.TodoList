@@ -13,7 +13,6 @@ const filterCallback = (filter) => {
   typeFilter.value = filter
 }
 
-
 </script>
 
 <template>
@@ -22,7 +21,9 @@ const filterCallback = (filter) => {
     <div class="app-content">
       <Header />
       <div class="todo-container">
+        <!-- receive value from Toolbar.vue(child component) -->
         <Toolbar @selectedFilter="filterCallback"/>
+        <!-- send value to TodoList.vue(child component) -->
         <TodoList :filter="typeFilter"/>
       </div>
     </div>

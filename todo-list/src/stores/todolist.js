@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export const useTodoListStore = defineStore('todolist', () => {
 
   // data structure
-  //   [ {id: int, 
+  //   [ {uuid: int, 
   //      title: "string", 
   //      date: "string", 
   //      content: [ "String" ], 
@@ -12,14 +12,6 @@ export const useTodoListStore = defineStore('todolist', () => {
   //      isImportant: boolean} ]
 
   const todoList = ref([])
-
-  //   const sortBy = computed(() => {})
-
-  // calculate time perios from now to create date and format it to "{min} mins ago".
-  // const timePeriod = computed((createdDate) => {
-  //   const now = Date.now()
-  //   return now - createdDate
-  // })
 
   function addTodo(todo) {
     console.log("todo", todo)
@@ -63,5 +55,5 @@ export const useTodoListStore = defineStore('todolist', () => {
     updateTarget.isCompleted = true
   }
 
-  return { todoList, addTodo, deleteTodo, updateTodo, updateImpotant, updateCompleted}
+  return { todoList, addTodo, deleteTodo, updateTodo, updateImpotant, updateCompleted }
 })

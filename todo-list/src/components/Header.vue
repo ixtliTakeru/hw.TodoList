@@ -65,6 +65,7 @@ const rules = {
     content: [{ validator: validateEmpty, trigger: 'blur' }],
 }
 
+// another way to create rules
 // const ruless = reactive({
 //     title: [{ 
 //         required: true,
