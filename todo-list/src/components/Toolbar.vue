@@ -37,12 +37,9 @@ const filterDropdownItems = [
 const emit = defineEmits(["selectedFilter"])
 function onSelectChanged() {
     console.log("onSelectChanged", selectedFilter.value);
-    // emit to TodoList.Vue 
+    // emit to App.Vue 
     emit("selectedFilter", selectedFilter.value)
 }
-
-
-
 </script>
 
 <template>
