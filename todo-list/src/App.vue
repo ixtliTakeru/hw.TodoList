@@ -16,11 +16,14 @@ const filterCallback = (filter) => {
 </script>
 
 <template>
-  <div class="app-container">
+  <!-- <div class="app-container"> -->
+    <div class="flex w-screen h-screen p-3 overflow-hidden bg-white">
     <Sidebar />
-    <div class="app-content">
+    <!-- <div class="app-content"> -->
+    <div class="w-full h-full overflow-hidden">
       <Header />
-      <div class="todo-container">
+      <!-- <div class="todo-container"> -->
+      <div class="w-full h-full overflow-hidden bg-custom-bg rounded-[32px]">
         <!-- receive value from Toolbar.vue(child component) -->
         <Toolbar @selectedFilter="filterCallback"/>
         <!-- send value to TodoList.vue(child component) -->
@@ -31,12 +34,13 @@ const filterCallback = (filter) => {
   </div>
 </template>
 
+<!-- use tailwind css to replace below css style-->
 <style scoped>
 .app-container {
   width: 100vw;
   height: 100vh;
   background-color: white;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   overflow: hidden;
 }
