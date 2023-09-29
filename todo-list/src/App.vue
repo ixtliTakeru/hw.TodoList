@@ -17,7 +17,7 @@ const filterCallback = (filter) => {
 
 <template>
   <!-- <div class="app-container"> -->
-    <div class="flex w-screen h-screen p-3 overflow-hidden bg-white">
+    <div class="flex w-screen h-screen p-2 overflow-hidden bg-white">
     <Sidebar />
     <!-- <div class="app-content"> -->
     <div class="w-full h-full overflow-hidden">

@@ -2,31 +2,27 @@
 import { TrashIcon, ArrowTrendingUpIcon, CurrencyDollarIcon, UserIcon, CalendarIcon, RectangleGroupIcon, ArchiveBoxIcon } from '@heroicons/vue/24/outline'
 </script>
 
+<!-- ref: https://www.youtube.com/watch?v=pfaSUYaSgRo -->
 <template>
-    <div class="app-sidebar">
+    <div class="flex flex-col items-center justify-between w-20 mr-2">
         <div>
-            <img src = "../assets/logo.svg" alt="" style="margin-bottom: 20px;"/>
+            <img src = "../assets/logo.svg" alt="" class="w-12 h-12 mt-4 mb-4"/>
 
-            <RectangleGroupIcon class="icon"/>
-
-            <ArrowTrendingUpIcon class="icon"/>
-
-            <CalendarIcon class="icon"/>
-
-            <UserIcon  class="icon"/>
-
-            <CurrencyDollarIcon  class="icon"/>
+            <RectangleGroupIcon class="sidebar-icon"/>
+            <ArrowTrendingUpIcon class="sidebar-icon"/>
+            <CalendarIcon class="sidebar-icon"/>
+            <UserIcon  class="sidebar-icon"/>
+            <CurrencyDollarIcon  class="sidebar-icon"/>
         </div>
-
+        
         <div>
-            <ArchiveBoxIcon class="icon"/>
-
-            <TrashIcon class="icon"/>
+            <ArchiveBoxIcon class="sidebar-icon"/>
+            <TrashIcon class="sidebar-icon"/>
         </div>
-
     </div>
 </template>
 
+<!-- use tailwind css to replace below css style-->
 <style scoped>
 .app-sidebar {
     width: 80px;
