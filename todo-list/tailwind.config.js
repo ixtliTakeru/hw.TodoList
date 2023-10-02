@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       colors: {
         'custom-bg': '#e9edf1',
+        'add-todo-btn-bg': '#55b6f3',
       },
     },   
   },

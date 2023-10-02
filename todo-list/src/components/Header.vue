@@ -96,15 +96,15 @@ const submitForm = (data) => {
 </script>
 
 <template>
-    <div class="app-header">
-        <div class="project-info">
-            <div class="project">Project</div>
-            <div class="project-name">Todo List</div>
+    <div class="flex flex-row items-center justify-between h-16 bg-white">
+        <div class="items-center block sm:flex">
+            <div class="text-xl font-semibold text-black bg-transparent sm:text-3xl">Project</div>
+            <div class="text-xl font-medium text-gray-500 bg-transparent sm:ml-3 sm:text-2xl">Todo List</div>
         </div>
 
         <!-- add todo btn -->
-        <el-button @click="dialogVisible = true" class="add-todo-btn">
-            Add <span>&nbsp;a new todo</span>
+        <el-button @click="dialogVisible = true" class="w-16 h-10 text-lg text-white border-none rounded-full sm:w-40 bg-add-todo-btn-bg shadow-transparent">
+            Add <span class="hidden sm:block">&nbsp;a new todo</span>
         </el-button>
 
         <!-- add todo dialog -->
@@ -123,11 +123,11 @@ const submitForm = (data) => {
             </el-form>
 
             <template #footer>
-                <span class="dialog-footer">
+                <span class="mr-2">
                     <el-button @click="dialogVisible = false">
                         Cancel
                     </el-button>                
-                    <el-button type="primary" @click="submitForm({formEl: addTodoForm, todo: tempTodo})">            
+                    <el-button class="text-white bg-add-todo-btn-bg" type="primary" @click="submitForm({formEl: addTodoForm, todo: tempTodo})">            
                         Add
                     </el-button>
                 </span>
@@ -136,12 +136,13 @@ const submitForm = (data) => {
     </div>
 </template>
 
+<!-- use tailwind css to replace below css style-->
 <style scoped>
 .app-header {
     height: 60px;
     background-color: white;
     display: flex;
-    margin: 10px;
+    margin: 0px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
