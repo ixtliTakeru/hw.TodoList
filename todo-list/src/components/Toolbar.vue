@@ -4,10 +4,6 @@ import { ref, computed, defineEmits} from 'vue'
 import { Bars4Icon, BeakerIcon, Cog6ToothIcon, EllipsisVerticalIcon } from '@heroicons/vue/24/outline'
 import { Squares2X2Icon } from '@heroicons/vue/24/solid'
 
-function handleClick() {
-    console.log("handleClick", handleClick);
-}
-
 // setup default selectedFilter value => "inprogress"
 const selectedFilter = ref("inprogress")
 const filterDropdownItems = [
@@ -43,16 +39,15 @@ function onSelectChanged() {
 </script>
 
 <template>
-    <div class="app-toolbar">
-        <div>
-            <Squares2X2Icon class="icon" />
-            <Bars4Icon class="icon" />
+    <div class="flex flex-row items-center justify-between mt-5 ml-10 mr-10 h-15">
+        <div class="flex">
+            <Squares2X2Icon class="w-6 h-6 mr-4 stroke-2 stroke-black hover:stroke-white hover:rounded-full hover:bg-black hover:p-0.5 hover:object-cover" />
+            <Bars4Icon class="w-6 h-6 mr-4 stroke-2 stroke-black hover:stroke-white hover:rounded-full hover:bg-black hover:p-0.5 hover:object-cover" />
         </div>
         <div>
-            <p style="color:gray; font-size: 12px;">Filter</p>
-            <select class="filter-dropdown-select" @change="onSelectChanged()" v-model="selectedFilter">
-                <option v-for="item in filterDropdownItems" v-bind:key="item.key" :value="item.value"
-                    class="filter-dropdown-option">
+            <p class="text-gray-500 text-md">Filter</p>
+            <select class="-ml-1 font-bold text-black bg-transparent border-transparent border-none text-md" @change="onSelectChanged()" v-model="selectedFilter">
+                <option v-for="item in filterDropdownItems" v-bind:key="item.key" :value="item.value">
                     {{ item.title }}
                 </option>
             </select>
@@ -60,6 +55,7 @@ function onSelectChanged() {
     </div>
 </template>
 
+<!-- use tailwind css to replace below css style-->
 <style scoped>
 .app-toolbar {
     height: 60px;
@@ -67,10 +63,10 @@ function onSelectChanged() {
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 20px;
-    border-radius: 32px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background-color: gray;
 }
 
 .icon {
