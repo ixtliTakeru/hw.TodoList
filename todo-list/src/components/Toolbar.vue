@@ -39,7 +39,7 @@ function onSelectChanged() {
 </script>
 
 <template>
-    <div class="flex flex-row items-center justify-between mt-5 ml-10 mr-10 h-15">
+    <div class="flex flex-row items-center justify-between pt-5 ml-10 mr-10 h-15">
         <div class="flex">
             <Squares2X2Icon class="w-6 h-6 mr-4 stroke-2 stroke-black hover:stroke-white hover:rounded-full hover:bg-black hover:p-0.5 hover:object-cover" />
             <Bars4Icon class="w-6 h-6 mr-4 stroke-2 stroke-black hover:stroke-white hover:rounded-full hover:bg-black hover:p-0.5 hover:object-cover" />

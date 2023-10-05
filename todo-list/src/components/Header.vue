@@ -96,7 +96,7 @@ const submitForm = (data) => {
 </script>
 
 <template>
-    <div class="flex flex-row items-center justify-between h-16 bg-white">
+    <div class="flex flex-row items-center justify-between h-16">
         <div class="items-center block sm:flex">
             <div class="text-xl font-semibold text-black bg-transparent sm:text-3xl">Project</div>
             <div class="text-xl font-medium text-gray-500 bg-transparent sm:ml-3 sm:text-2xl">Todo List</div>
