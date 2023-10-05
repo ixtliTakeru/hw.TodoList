@@ -190,6 +190,7 @@ const props = defineProps ({
                         <StarIcon v-else class="w-6 h-6 stroke-yellow-500" @click="updateImpotant(todo.uuid)" />
                         <!-- more dropdown list -->
                         <el-dropdown @command="handleMoreBtnCommand">
+                            <!-- TODO: remove border when hover and clicked -->
                             <EllipsisHorizontalIcon class="w-6 h-6 stroke-black hover:stroke-gray-500 checked:stroke-gray-500" />
                             <template #dropdown>
                                 <el-dropdown-menu>
@@ -206,7 +207,7 @@ const props = defineProps ({
         </VueDraggableNext>
 
         <!-- edit todo dialog -->
-        <el-dialog v-model="editDialogVisible" title="Edit todo" width="30%" style="border-radius: 20px;"
+        <el-dialog v-model="editDialogVisible" title="Edit todo" class="w-4/12 rounded-3xl"
             :show-close="false">
             <el-form label-width="100px" label-position="left">
                 <el-form-item label="Title">
@@ -224,11 +225,11 @@ const props = defineProps ({
             </el-form>
 
             <template #footer>
-                <span class="dialog-footer">
+                <span>
                     <el-button @click="editDialogVisible = false">
                         Cancel
                     </el-button>
-                    <el-button type="primary" @click="editDialogVisible = false, submitEditTodo(tempTodo)">
+                    <el-button class="text-white bg-add-todo-btn-bg" type="primary" @click="editDialogVisible = false, submitEditTodo(tempTodo)">
                         Submit
                     </el-button>
                 </span>
