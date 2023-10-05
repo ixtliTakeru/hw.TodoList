@@ -8,6 +8,9 @@ module.exports = {
         'custom-bg': '#e9edf1',
         'add-todo-btn-bg': '#55b6f3',
       },
+      gridTemplateColumns: {
+        'fill-220': 'repeat(auto-fill, 220px)',
+      },
     },   
   },
   plugins: [],

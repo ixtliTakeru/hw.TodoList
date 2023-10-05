@@ -11,7 +11,7 @@ const todoListStore = useTodoListStore()
 // for data
 const { todoList } = storeToRefs(todoListStore)
 // for function
-const { deleteTodo, updateTodo, updateImpotant, updateCompleted} = todoListStore
+const { deleteTodo, updateTodo, updateImpotant, updateCompleted } = todoListStore
 console.log("todoList.length", todoList.value.length)
 console.log("todoList", todoList.value)
 
@@ -172,25 +172,25 @@ const props = defineProps ({
 
 <template>
     <div>
-        <VueDraggableNext class="app-todolist" :list="todoList" :disabled="false">
+        <VueDraggableNext class="grid mt-5 ml-10 mr-10 grid-cols-fill-220" :list="todoList" :disabled="false">
             <!-- using v-for to render list with two args (todo and index) -->
-            <div v-for="(todo, index) in displayTodoList" :key="todo.uuid" class="todo-cardview">
-                <div class="todo-cardview-header">
-                    <p class="todo-cardview-title">{{ todo.title }}</p>
-                    <p class="todo-cardview-content">{{ todo.content }}</p>
+            <div v-for="(todo, index) in displayTodoList" :key="todo.uuid" class="flex flex-col justify-between mb-5 bg-white w-52 h-52 rounded-2xl">
+                <div class="m-5">
+                    <p class="w-40 text-xl font-bold text-black truncate">{{ todo.title }}</p>
+                    <p class="w-40 text-sm text-black break-words">{{ todo.content }}</p>
                 </div>
                 <!-- display staricon not checkbox -->
-                <div class="todo-cardview-footer">
-                    <div>
-                        <p class="todo-cardview-period"> {{ period(todo.date) }} </p>
+                <div class="flex m-5">
+                    <div class="mr-auto">
+                        <p class="text-xs text-blue-500"> {{ period(todo.date) }} </p>
                     </div>
-                    <div>
+                    <div class="flex">
                         <!-- Todo: should find the solution by checkbox, use a workaround(v-if, v-else) now -->
-                        <SolidStarIcon v-if="todo.isImportant" class="star-icon" @click="updateImpotant(todo.uuid)" />
-                        <StarIcon v-else class="star-icon" @click="updateImpotant(todo.uuid)" />
+                        <SolidStarIcon v-if="todo.isImportant" class="w-6 h-6 fill-yellow-500" @click="updateImpotant(todo.uuid)" />
+                        <StarIcon v-else class="w-6 h-6 stroke-yellow-500" @click="updateImpotant(todo.uuid)" />
                         <!-- more dropdown list -->
                         <el-dropdown @command="handleMoreBtnCommand">
-                            <EllipsisHorizontalIcon class="more-function-icon" />
+                            <EllipsisHorizontalIcon class="w-6 h-6 stroke-black hover:stroke-gray-500 checked:stroke-gray-500" />
                             <template #dropdown>
                                 <el-dropdown-menu>
                                     <!-- if you want to pass more than two args, wrap it to object -->
