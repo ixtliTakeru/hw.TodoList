@@ -20,10 +20,10 @@ const filterCallback = (filter) => {
     <div class="flex w-screen h-screen p-2 overflow-hidden bg-white">
     <Sidebar />
     <!-- <div class="app-content"> -->
-    <div class="w-full h-full overflow-hidden">
+    <div class="flex flex-col w-full h-full">
       <Header />
       <!-- <div class="todo-container"> -->
-      <div class="w-full h-full overflow-hidden bg-custom-bg rounded-[32px]">
+      <div class="bg-custom-bg rounded-[24px] grow">
         <!-- receive value from Toolbar.vue(child component) -->
         <Toolbar @selectedFilter="filterCallback"/>
         <!-- send value to TodoList.vue(child component) -->
