@@ -190,7 +190,6 @@ const props = defineProps ({
                         <StarIcon v-else class="w-6 h-6 stroke-yellow-500" @click="updateImpotant(todo.uuid)" />
                         <!-- more dropdown list -->
                         <el-dropdown @command="handleMoreBtnCommand">
-                            <!-- TODO: remove border when hover and clicked -->
                             <EllipsisHorizontalIcon class="w-6 h-6 stroke-black hover:stroke-gray-500 checked:stroke-gray-500" />
                             <template #dropdown>
                                 <el-dropdown-menu>
@@ -337,5 +336,14 @@ const props = defineProps ({
     margin-bottom: 20px;
     background: #e3e3e3;
     border-radius: 8px;
+}
+
+/* remove el-dropdown border when hover, focused and clicked */
+.el-tooltip__trigger { 
+    outline: none; 
+}
+
+.el-dropdown-link:focus-visible {
+    outline: none;
 }
 </style>
