@@ -6,4 +6,20 @@
     .sidebar-icon {
         @apply relative flex items-center justify-center w-8 h-8 p-1 mt-4 mb-4 ml-2 mr-2 transition-all duration-300 ease-linear bg-gray-100 rounded-lg stroke-2 stroke-black hover:stroke-white hover:bg-slate-600 hover:rounded-full;
     }
+
+    .statistics-amount-containter {
+        @apply flex items-center
+    }
+
+    .statistics-indicator {
+        @apply w-1 h-6 mr-2 bg-violet-700       
+    }
+
+    .statistics-title {
+        @apply text-xs sm:text-sm text-gray-500 
+    }
+    
+    .statistics-amount {
+        @apply text-xl sm:text-2xl text-black
+    }
 }

@@ -34,137 +34,121 @@ const completed = computed(() => {
 
 <template>
     <!-- for mobile -->
-    <div class="app-personal-mobile">
-        <div style="width: 100%; justify-content: center; display: flex;">
-            <img src="@/assets/nara.png" alt="profile image" class="selfie" style="width: 40px; height:40px">
+    <div class="w-24 m-2 sm:hidden">
+
+        <div class="flex justify-center">
+            <img src="@/assets/nara.png" alt="profile image" class="w-12 h-12 rounded-full">
         </div>
 
-        <div style="width: 100%; justify-content: center; display: flex; margin-top:20px; flex-wrap: wrap;">
-            <p class="hello-text" style="font-size:14px">Hello</p>
-            <p class="username-text" style="font-size:14px"> {{ userName }} </p>
+        <div class="mt-2">
+            <div class="text-sm text-center text-black">Hello</div>
+            <p class="text-sm font-medium text-center text-black"> {{ userName }} </p>
         </div>
 
-        <el-col style="margin:10px;">
-            <el-col :span="24">
+        <div class="grid grid-rows-4 gap-2 mt-5">
+            <div>
                 <p class="statistics-title">All</p>
-                <el-row class="statistics-amount-containter">
+                <div class="flex items-center">
                     <div class="statistics-indicator"></div>
                     <a class="statistics-amount"> {{ all }} </a>
-                </el-row>
-            </el-col>
+                </div>
+            </div>
 
-            <el-col :span="24">
+            <div>
                 <p class="statistics-title">In Progress</p>
-                <el-row class="statistics-amount-containter">
+                <div class="flex items-center">
                     <div class="statistics-indicator"></div>
                     <a class="statistics-amount"> {{ inProgress }} </a>
-                </el-row>
-            </el-col>
+                </div>
+            </div>
 
-            <el-col :span="24">
+            <div>
                 <p class="statistics-title">Important</p>
-                <el-row class="statistics-amount-containter">
+                <div class="flex items-center">
                     <div class="statistics-indicator"></div>
                     <a class="statistics-amount"> {{ important }} </a>
-                </el-row>
-            </el-col>
+                </div>
+            </div>
 
-            <el-col :span="24">
+            <div>
                 <p class="statistics-title">Completed</p>
-                <el-row class="statistics-amount-containter">
+                <div class="flex items-center">
                     <div class="statistics-indicator"></div>
                     <a class="statistics-amount"> {{ completed }} </a>
-                </el-row>
-            </el-col>
-        </el-col>
+                </div>
+            </div>
+        </div>
 
 
-        <div style="width: 100%; justify-content: center; display: flex; margin-top:20px; flex-wrap: wrap;">
-            <p class="hello-text" style="font-size:14px">Activity</p>
-            <p class="username-text" style="font-size:14px">Feed</p>
+        <div class="mt-5">
+            <p class="text-sm text-black">Activity</p>
+            <p class="text-sm font-medium text-black">Feed</p>
         </div>
     </div>    
 
-
-    <div class="app-personal">
-        <div class="icon-group">
-            <el-button :icon="MagnifyingGlassIcon" class="icon" circle />
-            <el-button :icon="MusicalNoteIcon" class="icon" circle />
-            <el-button :icon="BellIcon" class="icon" circle />
+    <!-- for desktop -->
+    <div class="hidden sm:block sm:m-2 sm:w-80">
+        <div class="flex justify-center w-full mt-2">
+            <el-button :icon="MagnifyingGlassIcon" class="mx-2" circle />
+            <el-button :icon="MusicalNoteIcon" class="mx-2" circle />
+            <el-button :icon="BellIcon" class="mx-2" circle />
         </div>
 
-        <div class="info-card">
-            <el-row>
-                <el-col :span="14">
-                    <div class="grid-content" style="height: 80px; align-items: center; display: flex;">
-                        <div style="margin-left: 20px;">
-                            <p class="hello-text">Hello</p>
-                            <p class="username-text"> {{ userName }} </p>
-                        </div>
-                    </div>
-                </el-col>
-
-                <el-col :span="10">
-                    <div class="grid-content" style="height: 80px; justify-content: center; display: flex;">
-                        <img src="@/assets/nara.png" alt="profile image" class="selfie">
-                    </div>
-                </el-col>
-            </el-row>Ï
+        <div class="flex items-center h-20 mt-10">
+            <div class="w-1/2">
+                <div class="ml-5 bg-white">
+                    <p class="text-xl text-black">Hello</p>
+                    <p class="text-xl font-medium text-black"> {{ userName }} </p>
+                </div>
+            </div>
+            <div class="w-1/2">
+                <img src="@/assets/nara.png" alt="profile image" class="object-cover w-20 h-20 rounded-full">
+            </div>
         </div>
 
-        <div class="statistics-card">
-            <el-row>
-                <el-col :span="12">
-                    <p class="statistics-title">All</p>
-                    <el-row class="statistics-amount-containter">
-                        <div class="statistics-indicator"></div>
-                        <a class="statistics-amount"> {{ all }} </a>
-                    </el-row>
-                </el-col>
+        <div class="grid grid-cols-2 gap-2 mt-5 ml-5">
+            <div>
+                <p class="statistics-title">All</p>
+                <div class="flex items-center">
+                    <div class="statistics-indicator"></div>
+                    <a class="statistics-amount"> {{ all }} </a>
+                </div>
+            </div>
 
-                <el-col :span="12">
-                    <p class="statistics-title">In Progress</p>
-                    <el-row class="statistics-amount-containter">
-                        <div class="statistics-indicator"></div>
-                        <a class="statistics-amount"> {{ inProgress }} </a>
-                    </el-row>
-                </el-col>
-            </el-row>Ï
-            <el-row>
-                <el-col :span="12">
-                    <p class="statistics-title">Important</p>
-                    <el-row class="statistics-amount-containter">
-                        <div class="statistics-indicator"></div>
-                        <a class="statistics-amount"> {{ important }} </a>
-                    </el-row>
-                </el-col>
+            <div>
+                <p class="statistics-title">In Progress</p>
+                <div class="flex items-center">
+                    <div class="statistics-indicator"></div>
+                    <a class="statistics-amount"> {{ inProgress }} </a>
+                </div>
+            </div>
 
-                <el-col :span="12">
-                    <p class="statistics-title">Completed</p>
-                    <el-row class="statistics-amount-containter">
-                        <div class="statistics-indicator"></div>
-                        <a class="statistics-amount"> {{ completed }} </a>
-                    </el-row>
-                </el-col>
-            </el-row>Ï
+            <div>
+                <p class="statistics-title">Important</p>
+                <div class="flex items-center">
+                    <div class="statistics-indicator"></div>
+                    <a class="statistics-amount"> {{ important }} </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="statistics-title">Completed</p>
+                <div class="flex items-center">
+                    <div class="statistics-indicator"></div>
+                    <a class="statistics-amount"> {{ completed }} </a>
+                </div>
+            </div>
         </div>
 
-        <div class="activity-card">
-            <el-row>
-                <el-col :span="14">
-                    <div class="grid-content" style="height: 80px; align-items: center;display: flex;">
-                        <div style="margin-left: 20px;">
-                            <p class="hello-text">Activity</p>
-                            <p class="username-text"> Feed </p>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
+        <div class="mt-5 ml-5">
+            <p class="text-xl text-black">Activity</p>
+            <p class="text-xl font-medium text-black">Feed</p>
         </div>
     </div>
 </template>
 
 <style scoped>
+/*
 .app-personal {
     width: 400px;
     background-color: white;
@@ -253,28 +237,29 @@ const completed = computed(() => {
 .statistics-item {
     height: 60px;
 }
+*/
 
-.statistics-title {
+/* .statistics-title {
     font-size: 14px;
     color: gray;
-}
+} 
 
 .statistics-amount {
     font-size: 24px;
     color: black;
-}
+} */
 
-.statistics-amount-containter {
+/* .statistics-amount-containter {
     align-items: center;
     display: flex;
-}
+} */
 
-.statistics-indicator {
+/* .statistics-indicator {
     height: 25px;
     width: 5px;
     background-color: blueviolet;
     margin-right: 10px;
-}
+} */
 
 .v-center-h-center {
     display: flex;
@@ -284,10 +269,9 @@ const completed = computed(() => {
     align-items: center;
 }
 
-/* screen width less than 1250px (for tablet) */
-
 
 /* screen width less than 600px (for mobile device) */
+/*
 @media (max-width:600px) {
     .app-personal {
         display: none;
@@ -301,5 +285,5 @@ const completed = computed(() => {
         font-size: 12px;
         color: gray;
     }
-}
+} */
 </style>
